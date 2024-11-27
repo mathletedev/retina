@@ -6,3 +6,6 @@ build api:
 
 clean:
 	go clean -modcache
+
+db:
+	psql retina < ./retina.sql
