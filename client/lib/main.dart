@@ -16,15 +16,13 @@ class RetinaApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MainLayout(title: 'Retina'),
+      home: const MainLayout(),
     );
   }
 }
 
 class MainLayout extends StatefulWidget {
-  const MainLayout({super.key, required this.title});
-
-  final String title;
+  const MainLayout({super.key});
 
   @override
   State<MainLayout> createState() => _MainLayoutState();
@@ -44,7 +42,12 @@ class _MainLayoutState extends State<MainLayout> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
+        title: Text(switch (_viewIndex) {
+          0 => 'Pupil',
+          1 => 'Iris',
+          2 => 'Macula',
+          _ => 'Invalid view',
+        }),
       ),
       body: switch (_viewIndex) {
         0 => const Center(child: Text('Pupil')),
