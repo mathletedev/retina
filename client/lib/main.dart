@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:retina/views/iris.dart';
+import 'package:retina/views/macula.dart';
+import 'package:retina/views/pupil.dart';
 
 void main() {
   runApp(const RetinaApp());
@@ -50,9 +52,9 @@ class _MainLayoutState extends State<MainLayout> {
         }),
       ),
       body: switch (_viewIndex) {
-        0 => const Center(child: Text('Pupil')),
+        0 => const PupilView(),
         1 => const IrisView(),
-        2 => const Center(child: Text('Macula')),
+        2 => const MaculaView(),
         _ => const Center(child: Text('Invalid view')),
       },
       bottomNavigationBar: BottomNavigationBar(

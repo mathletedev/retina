@@ -15,7 +15,7 @@ class _IrisViewState extends State<IrisView> {
         Expanded(
           child: Container(
             padding: const EdgeInsets.all(15),
-            child: Column(
+            child: ListView(
               children: [
                 Align(
                   alignment: Alignment.topRight,
@@ -26,7 +26,7 @@ class _IrisViewState extends State<IrisView> {
                       border: Border.all(color: Colors.lightBlue),
                       borderRadius: BorderRadius.circular(10),
                     ),
-                    child: const Text("What are some clubs I should join?"),
+                    child: const Text('What are some clubs I should join?'),
                   ),
                 ),
                 const SizedBox(height: 10),
@@ -68,6 +68,7 @@ Would you like help exploring specific opportunities, competitions, or local gro
             ),
           ),
         ),
+        const Divider(height: 0),
         Container(
           padding: const EdgeInsets.all(15),
           child: Row(
@@ -78,7 +79,7 @@ Would you like help exploring specific opportunities, competitions, or local gro
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(100),
                     ),
-                    hintText: "Ask Iris...",
+                    hintText: 'Ask Iris...',
                   ),
                 ),
               ),
