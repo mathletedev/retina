@@ -22,3 +22,10 @@ flutter:
   uses-material-design: true
   assets:
     - assets/
+  fonts:
+    - family: Agrandir
+      fonts:
+        - asset: fonts/Agrandir-Narrow.otf
+    - family: Magnolia Script
+      fonts:
+        - asset: fonts/MagnoliaScript.otf

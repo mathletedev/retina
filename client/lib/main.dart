@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:retina/views/iris.dart';
+import 'package:retina/views/login.dart';
 import 'package:retina/views/macula.dart';
 import 'package:retina/views/pupil.dart';
 
@@ -15,7 +16,9 @@ class RetinaApp extends StatelessWidget {
     return MaterialApp(
       title: 'Retina',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorSchemeSeed: Colors.deepPurple,
+        brightness: Brightness.dark,
+        fontFamily: 'Agrandir',
         useMaterial3: true,
       ),
       home: const MainLayout(),
@@ -33,9 +36,15 @@ class MainLayout extends StatefulWidget {
 class _MainLayoutState extends State<MainLayout> {
   int _viewIndex = 0;
 
-  void _onViewChanged(int index) {
+  void _setViewCallback(int index) {
     setState(() {
       _viewIndex = index;
+    });
+  }
+
+  void _onViewChanged(int index) {
+    setState(() {
+      _viewIndex = index + 1;
     });
   }
 
@@ -44,40 +53,45 @@ class _MainLayoutState extends State<MainLayout> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(switch (_viewIndex) {
-          0 => 'Pupil',
-          1 => 'Iris',
-          2 => 'Macula',
-          _ => 'Invalid view',
-        }),
+        title: Row(
+          children: [
+            Image.asset('assets/icon.png', height: 40),
+            const SizedBox(width: 10),
+            const Text('Retina',
+                style: TextStyle(fontFamily: 'Magnolia Script', fontSize: 30))
+          ],
+        ),
       ),
       body: switch (_viewIndex) {
-        0 => const PupilView(),
-        1 => const IrisView(),
-        2 => const MaculaView(),
+        0 => LoginView(setViewCallback: _setViewCallback),
+        1 => const PupilView(),
+        2 => const IrisView(),
+        3 => MaculaView(setViewCallback: _setViewCallback),
         _ => const Center(child: Text('Invalid view')),
       },
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.visibility),
-            label: 'Pupil',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.tips_and_updates),
-            label: 'Iris',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle),
-            label: 'Macula',
-          ),
-        ],
-        currentIndex: _viewIndex,
-        selectedItemColor: Theme.of(context).colorScheme.primary,
-        onTap: _onViewChanged,
-        selectedLabelStyle: const TextStyle(fontSize: 0),
-        unselectedLabelStyle: const TextStyle(fontSize: 0),
-      ),
+      bottomNavigationBar: _viewIndex == 0
+          ? null
+          : BottomNavigationBar(
+              items: const <BottomNavigationBarItem>[
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.visibility),
+                  label: 'Pupil',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.tips_and_updates),
+                  label: 'Iris',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.account_circle),
+                  label: 'Macula',
+                ),
+              ],
+              currentIndex: _viewIndex - 1,
+              selectedItemColor: Theme.of(context).colorScheme.primary,
+              onTap: _onViewChanged,
+              selectedLabelStyle: const TextStyle(fontSize: 0),
+              unselectedLabelStyle: const TextStyle(fontSize: 0),
+            ),
     );
   }
 }
